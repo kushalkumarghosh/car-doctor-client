@@ -3,16 +3,18 @@ import img from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const Login = () => {
-  const { signIn } = useContext(AuthContext);
+const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
 
-  const handleLogin = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    signIn(email, password)
+    console.log(name, email, password);
+
+    createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -25,8 +27,20 @@ const Login = () => {
         <div className="w-1/2 mr-12">{<img src={img} alt="" />}</div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
-            <h1 className="text-3xl text-center font-bold">Login</h1>
-            <form onSubmit={handleLogin}>
+            <h1 className="text-3xl text-center font-bold">Sign Up</h1>
+            <form onSubmit={handleSignUp}>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="email"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -41,7 +55,7 @@ const Login = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">Confirm Password</span>
                 </label>
                 <input
                   type="password"
@@ -60,14 +74,14 @@ const Login = () => {
                 <input
                   className="btn btn-primary"
                   type="submit"
-                  value="Login"
+                  value="Sign Up"
                 />
               </div>
             </form>
             <p className="my-4 text-center">
-              New to Car Medic?{" "}
-              <Link className="text-orange-600 font-bold" to="/signup">
-                Sign Up
+              Already Have an Account?{" "}
+              <Link className="text-orange-600 font-bold" to="/login">
+                Login
               </Link>
             </p>
           </div>
@@ -77,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
